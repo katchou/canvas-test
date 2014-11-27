@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>test canvas</title>
+  </head>
+  <body>  
+    <canvas id="testCanvas" width="112px" height="112px"></canvas>
+    <script>
+    var completion = 0;
+    var canvas = document.querySelector('#testCanvas');
+    var context = canvas.getContext('2d');
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+    var radius = 51;
+    function animate() {
+      setTimeout(function() {
+        window.requestAnimationFrame(animate);
+        completion++;
+        draw();
+      }, 1000);
+    }
+    function draw() { 
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.beginPath();
+      context.arc(centerX, centerY, radius, Math.PI * 1.5, Math.PI * (completion / 50 - 0.5), false);
+      context.lineWidth = 8;
+      context.strokeStyle = '#000';
+      context.stroke();
+
+      context.beginPath();
+      context.arc(centerX, centerY, radius, Math.PI * 1.5, Math.PI * (completion / 50 - 0.5), true);
+      context.lineWidth = 8;
+      context.strokeStyle = 'rgb(241,101,76)';
+      context.stroke();
+
+      context.font = 'bold 40pt Calibri';
+      context.textAlign = 'center';
+      var width = context.measureText(completion).width;
+      context.fillText(completion, centerX, centerY);
+
+      context.font = '20pt Calibri';
+      context.fillText('%', centerX , centerY + 30);
+    }
+    animate();
+    </script>
+  </body>
+</html>
